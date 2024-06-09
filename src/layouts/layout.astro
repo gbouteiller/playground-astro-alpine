@@ -1,0 +1,45 @@
+---
+import "@/styles/globals.css"
+import { ViewTransitions } from "astro:transitions"
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Solid</title>
+    <ViewTransitions />
+  </head>
+  <body>
+    <nav
+      aria-label="Main"
+      data-orientation="horizontal"
+      dir="ltr"
+      class="relative z-10 flex max-w-max flex-1 items-center justify-center"
+    >
+      <div style="position:relative" x-data={"{}"}>
+        <ul
+          data-orientation="horizontal"
+          class="group flex flex-1 list-none items-center justify-center space-x-1"
+          dir="ltr"
+          x-data="{navs: [{href:'/', id: 'home', text:'Accueil'}, {href:'/a-propos', id: 'about', text:'A propos'}]}"
+          @keydown.right="$focus.next()"
+          @keydown.left="$focus.previous()"
+        >
+          <template x-for="nav in navs" :key="nav.id">
+            <li>
+              <a
+                :href="nav.href"
+                x-text="nav.text"
+                class="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+              ></a>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </nav>
+    <slot />
+  </body>
+</html>
